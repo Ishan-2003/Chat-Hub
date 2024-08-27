@@ -17,9 +17,21 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User joined room: ${data}`);
+  socket.on("join_room", (username,roomID) => {
+    socket.join(roomID);
+    socket.to(roomID).emit("notification",{
+      user : username,
+      room : roomID,
+    });
+    // console.log(`User joined room: ${r}`);
+  });
+  socket.on("readytoLeave",(username,roomID)=>{
+    socket.to(roomID).emit("notify",{
+      user : username,
+      room : roomID,
+    });
+    socket.disconnect();
+
   });
 
   socket.on("send_message",(data)=>{
@@ -29,6 +41,8 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
+
+
 });
 
 server.listen(3001, () => {
