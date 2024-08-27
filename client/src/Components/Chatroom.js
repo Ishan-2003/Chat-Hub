@@ -6,6 +6,8 @@ import { useLocation,useNavigate } from 'react-router-dom'
 import Displayedmessage from './Displayedmessage';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import {Helmet} from 'react-helmet'
+
 // import Displayedmessage from './Displayedmessage';
 
 // const socket = io.connect("http://localhost:1000")
@@ -70,6 +72,13 @@ const Chatroom = () => {
   return (location.state.isjoined!==undefined&&location.state.isjoined!==false)?(
     <>
       <div className='outer-wrapper'>
+      <Helmet>
+      <title>
+        Chat Room {location.state.roomID}
+      </title>
+      <meta name='description' content='Message your connections'/>
+      <meta name='keywords' content='Chat App, Get Connected, Expand Network'/>
+    </Helmet>
         <h1 style={{ marginTop: "0%" , color:"orange",marginBottom:"1%"}}>Welcome to the Chat {location.state.username}</h1>
         <div className='chatBox'>
           <div className='display-area-outer-wrapper'>
@@ -88,7 +97,9 @@ const Chatroom = () => {
 
           <div className='chatTextarea'>
             <input type='text' value={currentmsg} onChange={(event) => { setcurrentmsg(event.target.value); }} onKeyPress={(ev) => (ev.key === "Enter") ? sendMsg() : null}></input>
-            <button onClick={sendMsg}>Send</button>
+            <button onClick={sendMsg} className='sending-btn'>
+              <img src='/sendinglogo.jpg' alt='Send'></img>
+            </button>
           </div>
         </div>
             <button onClick={leaving} className='chatBox leave-btn'>

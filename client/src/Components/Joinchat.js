@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { socket } from '../socket';
+import {Helmet} from 'react-helmet'
 
 const Joinchat = () => {
     const joined_audio = new Audio('/joined.mp3');
@@ -30,6 +31,13 @@ const Joinchat = () => {
     },[])
     return (
         <div className='outer-wrapper'>
+        <Helmet>
+      <title>
+        Chat Hub
+      </title>
+      <meta name='description' content='get connected with your friends'/>
+      <meta name='keywords' content='Chat App, Get Connected, Expand Network'/>
+    </Helmet>
             <div className="join_room">
                 <h1 className='join_heading'>Join Chat</h1>
                 <input type="text" placeholder='Enter Your Name' onChange={(e) => { setusername(e.target.value) }} />
